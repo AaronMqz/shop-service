@@ -1,29 +1,37 @@
 # shop-service
 
-## Task 3
+## Task 4
+
+What was done?
+
+- Task 4.1, 4.2 and 4.3 are completed.
+- Frontend is integrated with Product Service.
+
+NOTE: "Write a script to fill tables with test examples" you can find it in:
+
+- ./scripts/fillTables.js
+- command for execution:: npm run fillTables (package.json -> "fillTables": "node ./scripts/fillTables.js")
+
+## Additional scope:
+
+- POST /products lambda functions returns error 400 status code if product data is invalid.
+- All lambdas return error 500 status code on any error (DB connection, any unhandled error in code).
+- All lambdas do console.log for each incoming requests and their arguments.
+- Transaction based creation of product.
+
+NOTE: "Use RDS instance instead fo DynamoDB tables." is still in development, I am doing tests to change the database using env variables, it can be ready in a couple of days.
+
+## Frontend, API/Swagger endpoints:
 
 - [FontendURL](https://d3gtmnlqgfhty9.cloudfront.net/)
 
-## Additional (optional) tasks
-
-- Async/await is used in lambda functions
-- ES6 modules are used for Product Service implementation
-- Custom Webpack/ESBuild/etc is manually configured for Product Service. Not applicable for preconfigured/built-in bundlers that come with templates, plugins, etc.
-- SWAGGER documentation is created for Product Service
-- Lambda handlers are covered by basic UNIT tests (NO infrastructure logic is needed to be covered)
-- Lambda handlers (getProductsList, getProductsById) code is written not in 1 single module (file) and separated in codebase.
-- Main error scenarios are handled by API ("Product not found" error).
-
-## API and swagger endpoints:
-
 - [getProductsList](https://1t66vxa1lk.execute-api.us-east-1.amazonaws.com/dev/products): GET - https://1t66vxa1lk.execute-api.us-east-1.amazonaws.com/dev/products
-- [Swagger](https://1t66vxa1lk.execute-api.us-east-1.amazonaws.com/dev/swagger): GET - https://1t66vxa1lk.execute-api.us-east-1.amazonaws.com/dev/swagger
+- [getProductsById](https://1t66vxa1lk.execute-api.us-east-1.amazonaws.com/dev/products/7567ec4b-b10c-48c5-9345-fc73c48a80aa): GET - https://1t66vxa1lk.execute-api.us-east-1.amazonaws.com/dev/products/7567ec4b-b10c-48c5-9345-fc73c48a80aa
 
-## Some getProductsById examples:
-
-- [Example1](https://1t66vxa1lk.execute-api.us-east-1.amazonaws.com/dev/products/7567ec4b-b10c-48c5-9345-fc73c48a80aa): GET - https://1t66vxa1lk.execute-api.us-east-1.amazonaws.com/dev/products/7567ec4b-b10c-48c5-9345-fc73c48a80aa
-- [Eexample2](https://1t66vxa1lk.execute-api.us-east-1.amazonaws.com/dev/products/7567ec4b-b10c-48c5-9345-fc73c48a80a1): GET - https://1t66vxa1lk.execute-api.us-east-1.amazonaws.com/dev/products/7567ec4b-b10c-48c5-9345-fc73c48a80a1
-
----
-
-Create PR for task 3
+- createProduct: POST - https://1t66vxa1lk.execute-api.us-east-1.amazonaws.com/dev/products - Use the schema:
+  {
+  "count":number,
+  "price":number,
+  "description":string,
+  "title":string
+  }
