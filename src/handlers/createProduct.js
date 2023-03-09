@@ -1,17 +1,13 @@
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import {
-  DynamoDBDocumentClient,
-  TransactWriteCommand,
-} from "@aws-sdk/lib-dynamodb";
 import { v4 as uuidv4 } from "uuid";
 import serviceResponse from "../services/response";
+import { createProductDynamoDb } from "../services/useDynamoDb";
+import { createProductMysql } from "../services/useMysql";
 
-const { PRODUCTS_TABLE, STOCKS_TABLE } = process.env;
-const client = new DynamoDBClient({});
-const dynamo = DynamoDBDocumentClient.from(client);
+const { DB_CONNECTION } = process.env;
 
 exports.createProduct = async (event) => {
   console.log("*** LAMBDA CREATE PRODUCT START ***");
+  let result;
   try {
     const newProduct = JSON.parse(event.body);
     console.log("ADDING PRODUCT: ", newProduct);
@@ -26,27 +22,15 @@ exports.createProduct = async (event) => {
       console.log("NEW ID CREATED", newProduct.id);
     }
 
-    const { count, ...newProductInfo } = newProduct;
-    const newStockInfo = { product_id: newProduct.id, count };
+    if (DB_CONNECTION === "MYSQL") {
+      result = await createProductMysql(newProduct);
+    } else {
+      result = await createProductDynamoDb(newProduct);
+    }
 
-    console.log("TRANSACTION START");
-
-    const transactionOutput = await dynamo.send(
-      new TransactWriteCommand({
-        TransactItems: [
-          { Put: { Item: newProductInfo, TableName: PRODUCTS_TABLE } },
-          { Put: { Item: newStockInfo, TableName: STOCKS_TABLE } },
-        ],
-      })
-    );
-
-    console.log("TRANSACTION FINISHED");
-
-    console.log("TRANSACTION OUTPUT", transactionOutput);
-
-    if (transactionOutput.$metadata?.httpStatusCode !== 200) {
-      console.log("TRANSACTION FAILED");
-      return serviceResponse.error("TRANSACTION FAILED!", 500);
+    if (!result) {
+      console.log("CREATION FAILED");
+      return serviceResponse.error("CREATION FAILED!", 500);
     }
 
     console.log("SUCCESS: 200", "BODY: ", newProduct);

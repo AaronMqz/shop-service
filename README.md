@@ -18,17 +18,16 @@ NOTE: "Write a script to fill tables with test examples" you can find it in:
 - All lambdas return error 500 status code on any error (DB connection, any unhandled error in code).
 - All lambdas do console.log for each incoming requests and their arguments.
 - Transaction based creation of product.
-
-NOTE: "Use RDS instance instead fo DynamoDB tables." is still in development, I am doing tests to change the database using env variables, it can be ready in a couple of days.
+- Use RDS instance instead fo DynamoDB tables. **_ MySql database integrated to Lambda Functions! _**
 
 ## Frontend, API/Swagger endpoints:
 
 - [FontendURL](https://d3gtmnlqgfhty9.cloudfront.net/)
 
-- [getProductsList](https://1t66vxa1lk.execute-api.us-east-1.amazonaws.com/dev/products): GET - https://1t66vxa1lk.execute-api.us-east-1.amazonaws.com/dev/products
-- [getProductsById](https://1t66vxa1lk.execute-api.us-east-1.amazonaws.com/dev/products/7567ec4b-b10c-48c5-9345-fc73c48a80aa): GET - https://1t66vxa1lk.execute-api.us-east-1.amazonaws.com/dev/products/7567ec4b-b10c-48c5-9345-fc73c48a80aa
+- [getProductsList](https://qgxxnpoyz7.execute-api.us-east-1.amazonaws.com/dev/products): GET - https://qgxxnpoyz7.execute-api.us-east-1.amazonaws.com/dev/products
+- [getProductsById](https://qgxxnpoyz7.execute-api.us-east-1.amazonaws.com/dev/products/7567ec4b-b10c-48c5-9345-fc73c48a80aa): GET - https://qgxxnpoyz7.execute-api.us-east-1.amazonaws.com/dev/products/7567ec4b-b10c-48c5-9345-fc73c48a80aa
 
-- createProduct: POST - https://1t66vxa1lk.execute-api.us-east-1.amazonaws.com/dev/products - Use the schema:
+- createProduct: POST - https://qgxxnpoyz7.execute-api.us-east-1.amazonaws.com/dev/products - Use the schema:
   {
   "count":number,
   "price":number,

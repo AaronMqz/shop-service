@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: product-service-v3
+service: product-service-v4
 # app and org for use with dashboard.serverless.com
 #app: your-app-name
 #org: your-org-name
@@ -29,6 +29,11 @@ provider:
   environment:
     PRODUCTS_TABLE: ${env:PRODUCTS_TABLE}
     STOCKS_TABLE: ${env:STOCKS_TABLE}
+    MYSQL_USER: ${env:MYSQL_USER}
+    MYSQL_PASSWORD: ${env:MYSQL_PASSWORD}
+    MYSQL_HOST: ${env:MYSQL_HOST}
+    MYSQL_DB: ${env:MYSQL_DB}
+    DB_CONNECTION: ${env:DB_CONNECTION}
 
 plugins:
   - serverless-auto-swagger
