@@ -10,7 +10,7 @@ module.exports = {
     symlinks: false,
     cacheWithContext: false,
   },
-
+  devtool: "source-map",
   mode: slsw.lib.webpack.isLocal ? "development" : "production",
   output: {
     libraryTarget: "commonjs",
@@ -19,6 +19,7 @@ module.exports = {
   },
   optimization: {
     concatenateModules: false,
+    minimize: false,
   },
   target: "node",
   externals: [nodeExternals()],
@@ -38,6 +39,12 @@ module.exports = {
           transpileOnly: true,
           experimentalWatchApi: true,
         },
+      },
+      {
+        test: /\.js$/,
+        loader: "babel-loader",
+        include: __dirname,
+        exclude: [/node_modules/, /\.rb$/],
       },
     ],
   },

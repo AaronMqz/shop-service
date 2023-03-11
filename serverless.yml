@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: product-service-v3
+service: product-service-v4
 # app and org for use with dashboard.serverless.com
 #app: your-app-name
 #org: your-org-name
@@ -20,9 +20,20 @@ service: product-service-v3
 # Check out our docs for more details
 frameworkVersion: "3"
 
+useDotenv: true
+
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs16.x
+  stage: dev
+  environment:
+    PRODUCTS_TABLE: ${env:PRODUCTS_TABLE}
+    STOCKS_TABLE: ${env:STOCKS_TABLE}
+    MYSQL_USER: ${env:MYSQL_USER}
+    MYSQL_PASSWORD: ${env:MYSQL_PASSWORD}
+    MYSQL_HOST: ${env:MYSQL_HOST}
+    MYSQL_DB: ${env:MYSQL_DB}
+    DB_CONNECTION: ${env:DB_CONNECTION}
 
 plugins:
   - serverless-auto-swagger
@@ -37,11 +48,12 @@ custom:
     typefiles: "./src/types/product.ts"
     basePath: "/dev"
     apiType: http
+  dotenv:
+    basePath: ./
 
 package:
   exclude:
     - node_modules/**
-
 # you can overwrite defaults here
 #  stage: dev
 #  region: us-east-1
@@ -90,6 +102,13 @@ functions:
       - http:
           path: /products
           method: get
+          cors: true
+  createProduct:
+    handler: src/handlers/createProduct.createProduct
+    events:
+      - http:
+          path: /products
+          method: post
           cors: true
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

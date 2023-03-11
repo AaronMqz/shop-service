@@ -3,7 +3,7 @@
 const headers = {
   "Access-Control-Allow-Headers": "Content-Type",
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET",
+  "Access-Control-Allow-Methods": "*",
 };
 
 const errorMesageDefault = "Oop, Something went wrong. Please try again later.";
